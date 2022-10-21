@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, Types } = require("mongoose");
 
 const reactionSchema = new Schema(
   {
@@ -9,7 +9,7 @@ const reactionSchema = new Schema(
     reactionText: {
       type: String,
       required: true,
-      max: 280
+      max: 280,
     },
     username: {
       type: String,
@@ -21,7 +21,7 @@ const reactionSchema = new Schema(
       get: (date) => {
         return new Date(date).toLocaleString();
       },
-    }
+    },
   },
   {
     toJSON: {
