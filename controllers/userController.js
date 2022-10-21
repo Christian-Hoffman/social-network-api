@@ -4,8 +4,8 @@ module.exports = {
   getAllUsers(req, res) {
     User.find()
       .select('-__v')
-      // TODO: .populate('thoughts')
-      // TODO: .populate('friends')
+      .populate('thoughts')
+      .populate('friends')
       .then(
         (data) => res.json(data))
       .catch((err) => res.status(500).json(err));
@@ -32,5 +32,17 @@ module.exports = {
     User.findByIdAndDelete(req.params.userId)
       .then((userData) => res.json(userData))
       .catch((err) => res.status(500).json(err));
-  }
-}
+  },
+  addFriend(req, res) {
+    User.findByIdAndUpdate(req.params.userId, { $addToSet: { friends: req.params.friendId }},
+      { new: true })
+    .then((data) => !data ? res.status(404).json({ message: ' There is no user associated with this id'}) : res.json(data))
+    .catch((err) => res.status(500).json(err));
+  },
+  deleteFriend(req, res) {
+    User.findByIdAndUpdate(req.params.userId, { $pull: { friends: req.params.friendId }},
+      { new: true })
+    .then((data) => !data ? res.status(404).json({ message: ' There is no user associated with this id'}) : res.json(data))
+    .catch((err) => res.status(500).json(err));
+  },
+};
