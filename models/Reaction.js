@@ -6,7 +6,7 @@ const reactionSchema = new Schema(
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    reactionBody: {
+    reactionText: {
       type: String,
       required: true,
       max: 280
@@ -17,7 +17,7 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.noe,
+      default: Date.now,
       get: (date) => {
         return new Date(date).toLocaleString();
       },
