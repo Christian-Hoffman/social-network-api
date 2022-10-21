@@ -4,8 +4,8 @@ module.exports = {
   getAllUsers(req, res) {
     User.find()
       .select('-__v')
-      // .populate('thoughts')
-      // .populate('friends')
+      // TODO: .populate('thoughts')
+      // TODO: .populate('friends')
       .then(
         (data) => res.json(data))
       .catch((err) => res.status(500).json(err));
@@ -23,4 +23,14 @@ module.exports = {
       (userData) => res.json(userData))
     .catch((err) => res.status(500).json(err));
   },
+  updateUser(req, res) {
+    User.findByIdAndUpdate({ _id: req.params.userId }, req.body, { runValidators: true, new: true })
+      .then((userData) => res.json(userData))
+      .catch((err) => res.status(500).json(err));
+  },
+  deleteUser(req, res) {
+    User.findByIdAndDelete(req.params.userId)
+      .then((userData) => res.json(userData))
+      .catch((err) => res.status(500).json(err));
+  }
 }

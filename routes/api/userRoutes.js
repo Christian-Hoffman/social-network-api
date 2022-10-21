@@ -18,8 +18,8 @@ router
 router
   .route('/:userId')
   .get(getUser)
-//   .put(updateUser)
-//   .delete(deleteUser)
+  .put(updateUser)
+  .delete(deleteUser)
 
 // router
 //   .route('/:userId/friends/:friendId')
